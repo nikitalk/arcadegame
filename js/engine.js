@@ -24,7 +24,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 1505;
+    canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
@@ -119,8 +119,7 @@ var Engine = (function(global) {
             row, col;
         
         // Before drawing, clear existing canvas
-         ctx.setTransform(0.866, -0.5, 0.866, 0.5, 0, 300);
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+               ctx.clearRect(0,0,canvas.width,canvas.height)
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
