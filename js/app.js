@@ -20,14 +20,14 @@ class Enemy {
         // which will ensure the game runs at the same speed for
         // all computers.
         this.x+=this.speed;
-        if (this.x > 502) {
+        if (this.x > 1502) {
           this.x = -100;          
           this.speed = getRandomInt(7,15);
         }
         
         if ((this.row == player.row) && (this.x > player.col * 101 - 50) && (this.x < player.col * 101 + 50)) {
         player.row = 5;
-        player.col = 2;
+        player.col = 4;
         }
 
     }
@@ -48,7 +48,7 @@ class Player {
         this.x = 200;
         this.y = 373;
         this.row = 5;
-        this.col = 2;
+        this.col = 4;
         this.sprite = 'images/char-boy.png'; 
     }
 
@@ -68,7 +68,7 @@ class Player {
            if (this.col>0) this.col--;
         }
         if (key == "right") {
-           if (this.col < 4) this.col++;
+           if (this.col < 9) this.col++;
         }
         if (key == "up") {
             if (this.row > 0) this.row--;
@@ -80,12 +80,15 @@ class Player {
     }
 }
 
-const enemy = new Enemy(1, getRandomInt(7,15));
-const enemy1 = new Enemy(2, getRandomInt(7,15));
-const enemy2 = new Enemy(3,getRandomInt(7,15));
+const enemy = new Enemy(getRandomInt(1, 4), getRandomInt(7,15));
+const enemy1 = new Enemy(getRandomInt(1, 4), getRandomInt(7, 15));
+const enemy2 = new Enemy(getRandomInt(1, 4), getRandomInt(7, 15));
+const enemy3 = new Enemy(getRandomInt(1, 4), getRandomInt(7, 15));
+const enemy4 = new Enemy(getRandomInt(1, 4), getRandomInt(7, 15));
+
 const player = new Player();
 
-const allEnemies = [enemy, enemy1, enemy2];
+const allEnemies = [enemy, enemy1, enemy2, enemy3, enemy4];
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
