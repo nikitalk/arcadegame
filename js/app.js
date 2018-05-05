@@ -8,6 +8,7 @@ class Enemy {
         // a helper we've provided to easily load images
         this.x = 10;
         this.y = 10;
+        this.speed = 10;
         this.sprite = 'images/enemy-bug.png'; 
     }
 
@@ -17,6 +18,7 @@ class Enemy {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
+
     }
 
     // Draw the enemy on the screen
@@ -28,8 +30,8 @@ class Enemy {
 // Player class
 class Player {
     constructor(){
-        this.x = 10;
-        this.y = 10;
+        this.x = 200;
+        this.y = 373;
         this.sprite = 'images/char-boy.png'; 
     }
 
@@ -44,17 +46,19 @@ class Player {
     }
 
     handleInput(key) {
+      
         if (key == "left") {
-            this.x-=100;
-        } else
+           if (this.x>-2) this.x-=101;
+        }
         if (key == "right") {
-            this.x+=100;
-        } else
+           if (this.x < 402) this.x += 101;
+        }
         if (key == "up") {
-            this.y-=100;
-        } else
+            if (this.y > -42) this.y -= 83;
+            if (this.y == -42) { this.y = 373; this.x = 200;}
+        }
         if (key == "down") {
-            this.y+=100;
+            if (this.y < 373) this.y += 83;
         }
     }
 }
