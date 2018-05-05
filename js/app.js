@@ -22,9 +22,14 @@ class Enemy {
         this.x+=this.speed;
         if (this.x > 502) {
           this.x = -100;          
+          this.speed = getRandomInt(7,15);
         }
         
-        if (this.x == player.x) console.log(this.x, "  ", player.x);
+        if ((this.row == player.row) && (this.x > player.col * 101 - 50) && (this.x < player.col * 101 + 50)) {
+        player.row = 5;
+        player.col = 2;
+        }
+
     }
 
     // Draw the enemy on the screen
@@ -33,11 +38,17 @@ class Enemy {
     }
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 // Player class
 class Player {
     constructor(){
         this.x = 200;
         this.y = 373;
+        this.row = 5;
+        this.col = 2;
         this.sprite = 'images/char-boy.png'; 
     }
 
@@ -48,30 +59,30 @@ class Player {
 
     // Draw the enemy on the screen,
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y); 
+        ctx.drawImage(Resources.get(this.sprite), this.col*101, this.row*83-20); 
     }
 
     handleInput(key) {
       
         if (key == "left") {
-           if (this.x>-2) this.x-=101;
+           if (this.col>0) this.col--;
         }
         if (key == "right") {
-           if (this.x < 402) this.x += 101;
+           if (this.col < 4) this.col++;
         }
         if (key == "up") {
-            if (this.y > -42) this.y -= 83;
-            if (this.y == -42) { this.y = 373; this.x = 200;}
+            if (this.row > 0) this.row--;
+            if (this.row == 0) { this.row = 5; this.col = 2;}
         }
         if (key == "down") {
-            if (this.y < 373) this.y += 83;
+            if (this.row < 5) this.row++;
         }
     }
 }
 
-const enemy = new Enemy(1, 10);
-const enemy1 = new Enemy(2, 14);
-const enemy2 = new Enemy(3, 8);
+const enemy = new Enemy(1, getRandomInt(7,15));
+const enemy1 = new Enemy(2, getRandomInt(7,15));
+const enemy2 = new Enemy(3,getRandomInt(7,15));
 const player = new Player();
 
 const allEnemies = [enemy, enemy1, enemy2];
