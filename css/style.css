@@ -1,7 +1,8 @@
 body {
     text-align: center;
+    overflow: hidden;
 }
 
 canvas {
-    transform: perspective(25px) rotateX(1deg);
+    transform: perspective(600px) rotateX(40.5deg);
 }
