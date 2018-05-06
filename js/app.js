@@ -1,4 +1,6 @@
 const cols = 11;
+const scoreid = document.querySelector('#score');
+let score = 0;
 // Enemies our player must avoid
 class Enemy {
     constructor(row, speed){
@@ -27,17 +29,22 @@ class Enemy {
           this.y = this.row * 83 - 20;
           this.speed = getRandomInt(7,15);
         }
-        
+ 
         if ((this.row == player.row) && (this.x > player.col * 101 - 50) && (this.x < player.col * 101 + 50)) {
-        player.row = 5;
-        player.col = Math.floor(cols / 2);
+        player.sprite = "images/bam.png";         
+                setTimeout(function (){
+
+player.row = 5;
+player.col = Math.floor(cols / 2);        
+player.sprite = "images/char-pink-girl.png"; 
+        }, 1000);
         }
 
     }
 
     // Draw the enemy on the screen
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y); 
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);  
     }
 }
 
@@ -52,7 +59,7 @@ class Player {
         this.y = 373;
         this.row = 5;
         this.col = Math.floor(cols / 2);
-        this.sprite = 'images/char-boy.png'; 
+        this.sprite = "images/char-pink-girl.png"; 
     }
 
     // Update the player's position
@@ -75,7 +82,22 @@ class Player {
         }
         if (key == "up") {
             if (this.row > 0) this.row--;
-            if (this.row == 0) { this.row = 5; this.col = Math.floor(cols / 2);}
+            if (this.row == 0) {
+                 player.sprite = "images/great.png";
+                 setTimeout(function() {
+                   player.row = 5;
+                   player.col = Math.floor(cols / 2);
+                   player.sprite = "images/char-pink-girl.png";
+                 }, 1000);
+                scoreid.innerHTML = "";
+score++;
+scoreid.insertAdjacentHTML("beforeend", score);
+if (score == 5) {
+    score = 0;
+allEnemies.push(new Enemy());
+    scoreid.insertAdjacentHTML("beforeend", "You win");
+}
+                }
         }
         if (key == "down") {
             if (this.row < 5) this.row++;
@@ -83,15 +105,20 @@ class Player {
     }
 }
 
-const enemy = new Enemy();
+/* const enemy = new Enemy();
 const enemy1 = new Enemy();
 const enemy2 = new Enemy();
 const enemy3 = new Enemy();
-const enemy4 = new Enemy();
+const enemy4 = new Enemy(); */
 
 const player = new Player();
 
-const allEnemies = [enemy , enemy1, enemy2, enemy3, enemy4];
+const allEnemies = [];
+
+allEnemies.push(new Enemy());
+allEnemies.push(new Enemy());
+allEnemies.push(new Enemy());
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
