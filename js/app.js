@@ -2,7 +2,7 @@ const cols = 11;
 let stop = false;
 const scoreid = document.querySelector("#score");
 let score = 0;
-// Enemies our player must avoid
+
 class Enemy {
     constructor(row, speed) {
         // Variables applied to each of our instances go here,
@@ -13,7 +13,7 @@ class Enemy {
         this.row = getRandomInt(1, 3);
         this.x = -100;
         this.y = this.row * 83 - 20;
-        this.speed = getRandomInt(7, 15);
+        this.speed = getRandomInt(7, 15)*50;
         this.sprite = "images/enemy-bug.png";
     }
 
@@ -23,12 +23,12 @@ class Enemy {
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
-        this.x += this.speed;
+        this.x += (this.speed*dt);
         if (this.x > cols * 101) {
             this.x = -100;
             this.row = getRandomInt(1, 3);
             this.y = this.row * 83 - 20;
-            this.speed = getRandomInt(7, 15);
+            this.speed = getRandomInt(7, 15)*50;
         }
 
         if (
