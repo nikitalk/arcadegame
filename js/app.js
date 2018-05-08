@@ -25,14 +25,14 @@ class Game {
         this.hideWindow('#game-over');
         stoprender = false;
         player.reset(); 
-        lifesid.innerHTML = "";
+        
         for (const enemy of allEnemies) {
             enemy.reset();
         }
-        lifesid.insertAdjacentHTML("beforeend", player.lifes);
+        showStars(player.lifes); 
         scoreid.innerHTML = "";
                
-                scoreid.insertAdjacentHTML("beforeend", game.score);
+                scoreid.insertAdjacentHTML("beforeend", "Score: " + game.score);
 
         addCanvasEventListener();
     }
@@ -93,9 +93,7 @@ class Enemy {
                 player.sprite = "images/char-pink-girl.png";
                 stop = false;
                 player.lifes--;
-            lifesid.innerHTML = "";
-               
-            lifesid.insertAdjacentHTML("beforeend", player.lifes);
+                showStars(player.lifes);
             }, 1000);
             
         }
@@ -170,3 +168,17 @@ function addCanvasEventListener() {
 function removeCanvasEventListener() {
     document.removeEventListener('keyup', keyUpEvent);
 }
+
+
+function showStars(numberStar) {
+    if (numberStar == 1) {
+      document.getElementById("star3").innerHTML='';
+      document.getElementById("star2").innerHTML='';
+    } else if (numberStar == 2) {
+      document.getElementById("star3").innerHTML='';
+    } else if (numberStar == 3) {
+        document.getElementById("star").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
+      document.getElementById("star3").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
+      document.getElementById("star2").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
+    }
+  }

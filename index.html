@@ -2,28 +2,48 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>New Frogger</title>
+    <title>Classic Arcade Game Clone</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">  
 </head>
 <body>
     <div id="begin">
-Привет
+    <p>The Classic Arcade Game<br><br>
+            To win the game you need to reach the water with 50 points.<br>
+            To move use arrow keys.<br>
+            You have 3 lives and looses one after collision with a bug.<br>
+            10 points are added every time you reach the water.<br>
+            An extra life can be collected during the game.</p>
 
 <button id="start-game">Start game</button>
     </div>
 
     <div id="gaming">
-            <div id="score">0</div>
-            <div id="lifes">3</div>
+           
+            <ul class="stars">
+                <li id="score"></li>
+                <li id="star">
+                   
+                </li>
+                <li id="star2">
+                       
+                </li>
+                <li id="star3">
+                       
+                </li>
+                
+            </ul>
+
     </div>
 
     <div id="game-over">
-Игра закончена
+<p>Game over</p>
 <button id="try-again">Try again</button>
     </div>
 
     <div id="win-game">
-Поздравляем
+<p>Congratulations!!!</p>
 
 <button id="play-again">Play again</button>
     </div>

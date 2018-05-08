@@ -26,8 +26,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime, reachingWater = false;
 
-  canvas.width = 7*101;
-  canvas.height = 600;
+   canvas.width = 7*101;
+  canvas.height = 600; 
   
     doc.body.appendChild(canvas);
     doc.body.style.cssText = `background: url(images/bg.png) no-repeat center center fixed;
@@ -36,6 +36,7 @@ var Engine = (function(global) {
     -o-background-size: cover;
     background-size: cover;`;
     
+     
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -105,7 +106,9 @@ var Engine = (function(global) {
     function checkWaterReaching() {
         if (player.row == 0 && !reachingWater) {
             reachingWater = true;
+        
             player.sprite = "images/great.png";
+            player.row++;
             stop = true;
             setTimeout(addScoreAndReset, 1000);
             
@@ -120,8 +123,8 @@ var Engine = (function(global) {
                 player.sprite = "images/char-pink-girl.png";
                 stop = false;
                 scoreid.innerHTML = "";
-                game.score++;
-                scoreid.insertAdjacentHTML("beforeend", game.score);
+                game.score+=10;
+                scoreid.insertAdjacentHTML("beforeend", "Score: " + game.score);
                 
         reachingWater = false;
     }
@@ -139,7 +142,7 @@ var Engine = (function(global) {
     }
 
     function checkWin() {
-        if (game.score == 5) {
+        if (game.score == 50) {
             game.winGame();
             removeCanvasEventListener();
             canvas.style.display = 'none';
