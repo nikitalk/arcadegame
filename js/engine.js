@@ -13,6 +13,8 @@
  * writing app.js a little simpler to work with.
  */
 
+ let stoprender = false;
+
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -45,8 +47,8 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
-        render();
+        if (!stoprender) {update(dt);
+        render();}
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -64,9 +66,14 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
-        lastTime = Date.now();
-        main();
+        game.initialize();    
+        startgame.addEventListener("click", function (e) {
+           game.startGame(); 
+            reset();
+            lastTime = Date.now();
+            main();
+        });       
+ 
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -83,7 +90,10 @@ var Engine = (function(global) {
         checkCollisions();
         checkWaterReaching();
         checkWin();
+        checkLifes();
     }
+
+
 
 
     function checkWaterReaching() {
@@ -110,11 +120,48 @@ var Engine = (function(global) {
         reachingWater = false;
     }
 
+
+    function resetScore() {
+        player.reset();
+                player.sprite = "images/char-pink-girl.png";
+                stop = false;
+                scoreid.innerHTML = "";
+                game.score++;
+                scoreid.insertAdjacentHTML("beforeend", game.score);
+                
+        reachingWater = false;
+    }
+
     function checkWin() {
         if (game.score == 5) {
-            game.score = 0;
-            allEnemies.push(new Enemy());
-            scoreid.insertAdjacentHTML("beforeend", "You win");
+            game.winGame();
+            removeCanvasEventListener();
+            canvas.style.display = 'none';
+            startnewgame.addEventListener("click", function (e) {
+                
+                game.startGame();
+                
+                
+                canvas.style.display = '';
+             });  
+        }
+    }
+
+   
+
+    function checkLifes() {
+        if (player.lifes == 0) {
+            
+            game.gameOver();
+            
+            removeCanvasEventListener();
+         //   canvas.style.display = 'none';
+            startnew2game.addEventListener("click", function (e) {
+                
+                game.startGame();
+                
+           //     canvas.style.display = '';
+             });  
         }
     }
 

@@ -6,3 +6,20 @@ body {
 canvas {
     transform: perspective(600px) rotateX(30.5deg);
 }
+
+
+#begin {
+
+}
+
+#gaming {
+
+}
+
+#gameover {
+
+}
+
+#wingame {
+
+}

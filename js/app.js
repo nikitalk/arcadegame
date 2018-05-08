@@ -1,26 +1,61 @@
 let stop = false;
 const scoreid = document.querySelector("#score");
-
+const lifesid = document.querySelector("#lifes");
+const startgame = document.querySelector("#startgame");
+const startnewgame = document.querySelector("#startnewgame");
+const startnew2game = document.querySelector("#startnew2game");
 
 class Game {
     constructor() {
         this.score = 0;
-        this.colomns = 11;
-        this.rows = 5;
+    }
+
+    initialize() {
+        this.hideWindow('#gaming');
+        this.hideWindow('#gameover');
+        this.hideWindow('#wingame');
     }
 
     startGame() {
         this.score = 0;
+        player.lifes = 3;
+        this.hideWindow('#begin');
+        this.showWindow('#gaming');
+        this.hideWindow('#wingame');
+        this.hideWindow('#gameover');
+        stoprender = false;
+        player.reset(); 
+        lifesid.innerHTML = "";
+        for (const enemy of allEnemies) {
+            enemy.reset();
+        }
+        lifesid.insertAdjacentHTML("beforeend", player.lifes);
+        scoreid.innerHTML = "";
+               
+                scoreid.insertAdjacentHTML("beforeend", game.score);
+
+        addCanvasEventListener();
     }
 
     gameOver() {
-        
+        this.hideWindow('#gaming');
+        this.showWindow('#gameover');
+        stoprender = true;
     }
 
-    resetGame() {
-
-
+    winGame() {
+        this.hideWindow('#gaming');
+        this.showWindow('#wingame');
+        stoprender = true;
     }
+
+    hideWindow(windowName) {
+        document.querySelector(windowName).style.display = 'none';
+    };
+    
+    showWindow(windowName) {
+        document.querySelector(windowName).style.display = '';
+    };
 }
 
 class Enemy {
@@ -32,22 +67,24 @@ class Enemy {
         this.sprite = "images/enemy-bug.png";
     }
 
+    reset() {
+        this.x = -100;
+        this.row = getRandomInt(1, 3);
+        this.y = this.row * 83 - 20;
+        this.speed = getRandomInt(190, 550);
+    }
+
     update(dt) {
         this.x += (this.speed*dt);
-        if (this.x > 7 * 101) {
-            this.x = -100;
-            this.row = getRandomInt(1, 3);
-            this.y = this.row * 83 - 20;
-            this.speed = getRandomInt(190, 550);
-        }
+        if (this.x > 7 * 101) this.reset();
     }
 
     collision() {
-        if (
+        if ((
             this.row == player.row &&
             this.x > player.col * 101 - 50 &&
             this.x < player.col * 101 + 50
-        ) {
+        )&& !stop) {
             player.sprite = "images/bam.png";
             stop = true;
             setTimeout(function () {
@@ -55,7 +92,12 @@ class Enemy {
                 player.col = 3;
                 player.sprite = "images/char-pink-girl.png";
                 stop = false;
+                player.lifes--;
+            lifesid.innerHTML = "";
+               
+            lifesid.insertAdjacentHTML("beforeend", player.lifes);
             }, 1000);
+            
         }
     }
 
@@ -72,12 +114,12 @@ function getRandomInt(min, max) {
 // Player class
 class Player {
     constructor() {
+        this.lifes = 3;
         this.row = 5;
         this.col = 3;
         this.sprite = "images/char-pink-girl.png";
     }
 
-    // Update the player's position
     update() { 
         
     }
@@ -85,8 +127,9 @@ class Player {
     reset() {
         this.row = 5;
         this.col = 3;
+        
     }
-    // Draw the enemy on the screen,
+    
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.col * 101, this.row * 83 - 20);
         }
@@ -99,21 +142,31 @@ class Player {
     }
 }
 
+
+
 const player = new Player();
 
 const allEnemies = [];
-for (i = 1; i<10; i++) allEnemies.push(new Enemy());
+for (i = 1; i<5; i++) allEnemies.push(new Enemy());
 
 const game = new Game();
 
-document.addEventListener("keyup", function (e) {
-    if (!stop) {
-        var allowedKeys = {
-            37: "left",
-            38: "up",
-            39: "right",
-            40: "down"
-        };
-        player.handleInput(allowedKeys[e.keyCode]);
-    }
-});
+
+const allowedKeys = {
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+};
+
+const keyUpEvent = function (e) {
+    if (!stop) player.handleInput(allowedKeys[e.keyCode]);
+};
+
+function addCanvasEventListener() {
+    document.addEventListener('keyup', keyUpEvent);
+}
+
+function removeCanvasEventListener() {
+    document.removeEventListener('keyup', keyUpEvent);
+}
