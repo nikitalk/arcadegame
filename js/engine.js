@@ -22,10 +22,10 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime, reachingWater = false;
 
-  canvas.width = cols*101;
-  canvas.height = 700;
+  canvas.width = 7*101;
+  canvas.height = 600;
   
     doc.body.appendChild(canvas);
 
@@ -81,8 +81,42 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        checkWaterReaching();
+        checkWin();
     }
 
+
+    function checkWaterReaching() {
+        if (player.row == 0 && !reachingWater) {
+            reachingWater = true;
+            player.sprite = "images/great.png";
+            stop = true;
+            setTimeout(addScoreAndReset, 1000);
+            
+        }
+    }
+
+
+
+
+    function addScoreAndReset() {
+        player.reset();
+                player.sprite = "images/char-pink-girl.png";
+                stop = false;
+                scoreid.innerHTML = "";
+                game.score++;
+                scoreid.insertAdjacentHTML("beforeend", game.score);
+                
+        reachingWater = false;
+    }
+
+    function checkWin() {
+        if (game.score == 5) {
+            game.score = 0;
+            allEnemies.push(new Enemy());
+            scoreid.insertAdjacentHTML("beforeend", "You win");
+        }
+    }
 
     function checkCollisions() {
         for (const enemy of allEnemies) {
@@ -123,7 +157,7 @@ var Engine = (function(global) {
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
-            numCols = cols,
+            numCols = 7,
             row, col;
         
         // Before drawing, clear existing canvas

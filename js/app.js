@@ -1,8 +1,6 @@
-const cols = 11;
-
 let stop = false;
 const scoreid = document.querySelector("#score");
-let score = 0;
+
 
 class Game {
     constructor() {
@@ -26,21 +24,21 @@ class Game {
 }
 
 class Enemy {
-    constructor(row, speed) {
+    constructor() {
         this.row = getRandomInt(1, 3);
-        this.x = -100;
+        this.x = -getRandomInt(100, 600);
         this.y = this.row * 83 - 20;
-        this.speed = getRandomInt(90, 250);
+        this.speed = getRandomInt(190, 550);
         this.sprite = "images/enemy-bug.png";
     }
 
     update(dt) {
         this.x += (this.speed*dt);
-        if (this.x > cols * 101) {
+        if (this.x > 7 * 101) {
             this.x = -100;
             this.row = getRandomInt(1, 3);
             this.y = this.row * 83 - 20;
-            this.speed = getRandomInt(90, 250);
+            this.speed = getRandomInt(190, 550);
         }
     }
 
@@ -54,7 +52,7 @@ class Enemy {
             stop = true;
             setTimeout(function () {
                 player.row = 5;
-                player.col = Math.floor(cols / 2);
+                player.col = 3;
                 player.sprite = "images/char-pink-girl.png";
                 stop = false;
             }, 1000);
@@ -74,67 +72,39 @@ function getRandomInt(min, max) {
 // Player class
 class Player {
     constructor() {
-        this.x = 200;
-        this.y = 373;
         this.row = 5;
-        this.col = Math.floor(cols / 2);
+        this.col = 3;
         this.sprite = "images/char-pink-girl.png";
     }
 
     // Update the player's position
-    update() { }
+    update() { 
+        
+    }
 
+    reset() {
+        this.row = 5;
+        this.col = 3;
+    }
     // Draw the enemy on the screen,
     render() {
-        ctx.drawImage(
-            Resources.get(this.sprite),
-            this.col * 101,
-            this.row * 83 - 20
-        );
+        ctx.drawImage(Resources.get(this.sprite), this.col * 101, this.row * 83 - 20);
         }
 
     handleInput(key) {
-        if (key == "left") {
-            if (this.col > 0) this.col--;
-        }
-        if (key == "right") {
-            if (this.col < cols - 1) this.col++;
-        }
-        if (key == "up") {
-            if (this.row > 0) this.row--;
-            if (this.row == 0) {
-                player.sprite = "images/great.png";
-                stop = true;
-                setTimeout(function () {
-                    player.row = 5;
-                    player.col = Math.floor(cols / 2);
-                    player.sprite = "images/char-pink-girl.png";
-                    stop = false;
-                    p;
-                }, 1000);
-                scoreid.innerHTML = "";
-                score++;
-                scoreid.insertAdjacentHTML("beforeend", score);
-                if (score == 5) {
-                    score = 0;
-                    allEnemies.push(new Enemy());
-                    scoreid.insertAdjacentHTML("beforeend", "You win");
-                }
-            }
-        }
-        if (key == "down") {
-            if (this.row < 5) this.row++;
-        }
+        if ((key == "left") && (this.col > 0)) this.col--;
+        if ((key == "right") && (this.col < 6)) this.col++;
+        if ((key == "up") && (this.row > 0)) this.row--;
+        if ((key == "down") && (this.row < 5)) this.row++;
     }
 }
 
 const player = new Player();
 
 const allEnemies = [];
+for (i = 1; i<10; i++) allEnemies.push(new Enemy());
 
-for (i = 1; i<5; i++) {
-    allEnemies.push(new Enemy(getRandomInt(1, 3), getRandomInt(150, 350)));
-}
+const game = new Game();
 
 document.addEventListener("keyup", function (e) {
     if (!stop) {
