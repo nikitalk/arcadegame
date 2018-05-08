@@ -30,6 +30,12 @@ var Engine = (function(global) {
   canvas.height = 600;
   
     doc.body.appendChild(canvas);
+    doc.body.style.cssText = `background: url(images/bg.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;`;
+    
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
