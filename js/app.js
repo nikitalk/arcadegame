@@ -1,9 +1,9 @@
 let stop = false;
 const scoreid = document.querySelector("#score");
 const lifesid = document.querySelector("#lifes");
-const startgame = document.querySelector("#startgame");
-const startnewgame = document.querySelector("#startnewgame");
-const startnew2game = document.querySelector("#startnew2game");
+const startGame = document.querySelector("#start-game");
+const tryAgain = document.querySelector("#try-again");
+const playAgain = document.querySelector("#play-again");
 
 class Game {
     constructor() {
@@ -12,8 +12,8 @@ class Game {
 
     initialize() {
         this.hideWindow('#gaming');
-        this.hideWindow('#gameover');
-        this.hideWindow('#wingame');
+        this.hideWindow('#game-over');
+        this.hideWindow('#win-game');
     }
 
     startGame() {
@@ -21,8 +21,8 @@ class Game {
         player.lifes = 3;
         this.hideWindow('#begin');
         this.showWindow('#gaming');
-        this.hideWindow('#wingame');
-        this.hideWindow('#gameover');
+        this.hideWindow('#win-game');
+        this.hideWindow('#game-over');
         stoprender = false;
         player.reset(); 
         lifesid.innerHTML = "";
@@ -39,13 +39,13 @@ class Game {
 
     gameOver() {
         this.hideWindow('#gaming');
-        this.showWindow('#gameover');
+        this.showWindow('#game-over');
         stoprender = true;
     }
 
     winGame() {
         this.hideWindow('#gaming');
-        this.showWindow('#wingame');
+        this.showWindow('#win-game');
         stoprender = true;
     }
 

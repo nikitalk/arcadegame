@@ -67,7 +67,7 @@ var Engine = (function(global) {
      */
     function init() {
         game.initialize();    
-        startgame.addEventListener("click", function (e) {
+        startGame.addEventListener("click", function (e) {
            game.startGame(); 
             reset();
             lastTime = Date.now();
@@ -137,7 +137,7 @@ var Engine = (function(global) {
             game.winGame();
             removeCanvasEventListener();
             canvas.style.display = 'none';
-            startnewgame.addEventListener("click", function (e) {
+            playAgain.addEventListener("click", function (e) {
                 
                 game.startGame();
                 
@@ -155,12 +155,12 @@ var Engine = (function(global) {
             game.gameOver();
             
             removeCanvasEventListener();
-         //   canvas.style.display = 'none';
-            startnew2game.addEventListener("click", function (e) {
+            canvas.style.display = 'none';
+            tryAgain.addEventListener("click", function (e) {
                 
                 game.startGame();
                 
-           //     canvas.style.display = '';
+                canvas.style.display = '';
              });  
         }
     }
