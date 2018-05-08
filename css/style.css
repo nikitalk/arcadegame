@@ -53,11 +53,11 @@ padding: 5px;
     margin: 0;
   }
 
-  #score, #star2 {
+  #score, #star2, #star, #star3 {
     font-family: Mina;
  font-size: 37px;  
  color: rgb(53, 129, 9);
- margin-top: -20px;
+ 
   }
   
  .stars li {

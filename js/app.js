@@ -1,6 +1,6 @@
 let stop = false;
 const scoreid = document.querySelector("#score");
-const lifesid = document.querySelector("#lifes");
+
 const startGame = document.querySelector("#start-game");
 const tryAgain = document.querySelector("#try-again");
 const playAgain = document.querySelector("#play-again");
@@ -177,8 +177,8 @@ function showStars(numberStar) {
     } else if (numberStar == 2) {
       document.getElementById("star3").innerHTML='';
     } else if (numberStar == 3) {
-        document.getElementById("star").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
-      document.getElementById("star3").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
-      document.getElementById("star2").innerHTML=`<img src="images/Heart.png" width=50 height=60>`;
+        document.getElementById("star").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=top>`;
+      document.getElementById("star3").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=center>`;
+      document.getElementById("star2").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=center>`;
     }
   }
