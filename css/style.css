@@ -60,7 +60,7 @@ padding: 15px;
  }
 
 
-.stars {
+.lives-and-score {
   margin:0;  
   margin-left: 10px;
     margin-right: 10px;
@@ -70,14 +70,14 @@ padding: 15px;
     
   }
 
-  #score, #star2, #star, #star3 {
+  #score, #heart-1, #heart-2, #heart-3 {
     font-family: Mina;
  font-size: 37px;  
  color: rgb(255, 255, 255);
  
   }
   
- .stars li {
+ .lives-and-score li {
     list-style: none;
     display: inline-block;
   }
@@ -116,9 +116,9 @@ padding: 15px;
 
 #gaming {
 position: absolute; top: 5%;
-width:100%;
+width:60%;
 display: flex;
-justify-content: space-around; 
+justify-content: space-between; 
 text-shadow: 1px 1px 2px #000000;
 
 }

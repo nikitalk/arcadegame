@@ -1,184 +1,194 @@
-let stop = false;
-const scoreid = document.querySelector("#score");
-
+let stopMoves = false;
+let stopRender = false;
+const scoreId = document.querySelector("#score");
 const startGame = document.querySelector("#start-game");
 const tryAgain = document.querySelector("#try-again");
 const playAgain = document.querySelector("#play-again");
 
+// Game class
 class Game {
-    constructor() {
-        this.score = 0;
+  constructor() {
+    this.score = 0;
+  }
+
+  initialize() {
+    this.hideWindow("#gaming", "#game-over", "#win-game");
+  }
+
+  startGame() {
+    this.score = 0;
+    this.hideWindow("#begin", "#game-over", "#win-game");
+    this.showWindow("#gaming");
+
+    stopRender = false;
+
+    player.reset();
+    player.lives = 3;
+    showHearts(player.lives);
+
+    for (const enemy of allEnemies) {
+      enemy.reset();
     }
 
-    initialize() {
-        this.hideWindow('#gaming');
-        this.hideWindow('#game-over');
-        this.hideWindow('#win-game');
+    scoreId.innerHTML = "";
+    scoreId.insertAdjacentHTML("beforeend", "Score: " + game.score);
+
+    addCanvasEventListener();
+  }
+
+  stopGame() {
+    this.hideWindow("#gaming");
+    stopRender = true;
+    removeCanvasEventListener();
+  }
+
+  gameOver() {
+    this.stopGame();
+    this.showWindow("#game-over");
+  }
+
+  winGame() {
+    this.stopGame();
+    this.showWindow("#win-game");
+  }
+
+  hideWindow() {
+    for (const argument of arguments) {
+      document.querySelector(argument).style.display = "none";
     }
+  }
 
-    startGame() {
-        this.score = 0;
-        player.lifes = 3;
-        this.hideWindow('#begin');
-        this.showWindow('#gaming');
-        this.hideWindow('#win-game');
-        this.hideWindow('#game-over');
-        stoprender = false;
-        player.reset(); 
-        
-        for (const enemy of allEnemies) {
-            enemy.reset();
-        }
-        showStars(player.lifes); 
-        scoreid.innerHTML = "";
-               
-                scoreid.insertAdjacentHTML("beforeend", "Score: " + game.score);
-
-        addCanvasEventListener();
-    }
-
-    gameOver() {
-        this.hideWindow('#gaming');
-        this.showWindow('#game-over');
-        stoprender = true;
-    }
-
-    winGame() {
-        this.hideWindow('#gaming');
-        this.showWindow('#win-game');
-        stoprender = true;
-    }
-
-    hideWindow(windowName) {
-        document.querySelector(windowName).style.display = 'none';
-    };
-    
-    showWindow(windowName) {
-        document.querySelector(windowName).style.display = '';
-    };
+  showWindow(windowName) {
+    document.querySelector(windowName).style.display = "";
+  }
 }
 
+// Enemy class
 class Enemy {
-    constructor() {
-        this.row = getRandomInt(1, 3);
-        this.x = -getRandomInt(100, 600);
-        this.y = this.row * 83 - 20;
-        this.speed = getRandomInt(190, 550);
-        this.sprite = "images/enemy-bug.png";
-    }
+  constructor() {
+    this.row = getRandomInt(1, 3);
+    this.x = -getRandomInt(100, 600);
+    this.y = this.row * 83 - 20;
+    this.speed = getRandomInt(190, 550);
+    this.sprite = "images/enemy-bug.png";
+  }
 
-    reset() {
-        this.x = -100;
-        this.row = getRandomInt(1, 3);
-        this.y = this.row * 83 - 20;
-        this.speed = getRandomInt(190, 550);
-    }
+  reset() {
+    this.x = -getRandomInt(100, 600);
+    this.row = getRandomInt(1, 3);
+    this.y = this.row * 83 - 20;
+    this.speed = getRandomInt(190, 550);
+  }
 
-    update(dt) {
-        this.x += (this.speed*dt);
-        if (this.x > 7 * 101) this.reset();
-    }
+  update(dt) {
+    this.x += this.speed * dt;
+    if (this.x > 7 * 101) this.reset();
+  }
 
-    collision() {
-        if ((
-            this.row == player.row &&
-            this.x > player.col * 101 - 50 &&
-            this.x < player.col * 101 + 50
-        )&& !stop) {
-            player.sprite = "images/bam.png";
-            stop = true;
-            setTimeout(function () {
-                player.row = 5;
-                player.col = 3;
-                player.sprite = "images/char-pink-girl.png";
-                stop = false;
-                player.lifes--;
-                showStars(player.lifes);
-            }, 1000);
-            
-        }
+  collision() {
+    if (
+      this.row == player.row &&
+      this.x > player.col * 101 - 50 &&
+      this.x < player.col * 101 + 50 &&
+      !stopMoves
+    ) {
+      player.sprite = "images/bam.png";
+      stopMoves = true;
+      setTimeout(function() {
+        player.reset();
+        player.sprite = "images/char-pink-girl.png";
+        stopMoves = false;
+        player.lives--;
+        showHearts(player.lives);
+      }, 1000);
     }
+  }
 
-    // Draw the enemy on the screen
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
 }
 
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Player class
 class Player {
-    constructor() {
-        this.lifes = 3;
-        this.row = 5;
-        this.col = 3;
-        this.sprite = "images/char-pink-girl.png";
-    }
+  constructor() {
+    this.lives = 3;
+    this.row = 5;
+    this.col = 3;
+    this.sprite = "images/char-pink-girl.png";
+  }
 
-    update() { 
-        
-    }
+  reset() {
+    this.row = 5;
+    this.col = 3;
+  }
 
-    reset() {
-        this.row = 5;
-        this.col = 3;
-        
-    }
-    
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.col * 101, this.row * 83 - 20);
-        }
+  render() {
+    ctx.drawImage(
+      Resources.get(this.sprite),
+      this.col * 101,
+      this.row * 83 - 20
+    );
+  }
 
-    handleInput(key) {
-        if ((key == "left") && (this.col > 0)) this.col--;
-        if ((key == "right") && (this.col < 6)) this.col++;
-        if ((key == "up") && (this.row > 0)) this.row--;
-        if ((key == "down") && (this.row < 5)) this.row++;
-    }
+  handleInput(key) {
+    if (key == "left" && this.col > 0) this.col--;
+    if (key == "right" && this.col < 6) this.col++;
+    if (key == "up" && this.row > 0) this.row--;
+    if (key == "down" && this.row < 5) this.row++;
+  }
 }
-
-
 
 const player = new Player();
 
 const allEnemies = [];
-for (i = 1; i<5; i++) allEnemies.push(new Enemy());
+for (i = 1; i < 5; i++) allEnemies.push(new Enemy());
 
 const game = new Game();
 
-
 const allowedKeys = {
-    37: 'left',
-    38: 'up',
-    39: 'right',
-    40: 'down'
+  37: "left",
+  38: "up",
+  39: "right",
+  40: "down"
 };
 
-const keyUpEvent = function (e) {
-    if (!stop) player.handleInput(allowedKeys[e.keyCode]);
+const keyUpEvent = function(e) {
+  if (!stopMoves) player.handleInput(allowedKeys[e.keyCode]);
 };
 
 function addCanvasEventListener() {
-    document.addEventListener('keyup', keyUpEvent);
+  document.addEventListener("keyup", keyUpEvent);
 }
 
 function removeCanvasEventListener() {
-    document.removeEventListener('keyup', keyUpEvent);
+  document.removeEventListener("keyup", keyUpEvent);
 }
 
-
-function showStars(numberStar) {
-    if (numberStar == 1) {
-      document.getElementById("star3").innerHTML='';
-      document.getElementById("star2").innerHTML='';
-    } else if (numberStar == 2) {
-      document.getElementById("star3").innerHTML='';
-    } else if (numberStar == 3) {
-        document.getElementById("star").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=top>`;
-      document.getElementById("star3").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=center>`;
-      document.getElementById("star2").innerHTML=`<img src="images/Heart.png" width=40 height=60 align=center>`;
-    }
+function showHeart() {
+  for (const argument of arguments) {
+    document.querySelector(
+      argument
+    ).innerHTML = `<img src="images/Heart.png" width=40 height=60 align=center>`;
   }
+}
+
+function hideHeart() {
+  for (const argument of arguments) {
+    document.querySelector(argument).innerHTML = ``;
+  }
+}
+
+function showHearts(numberOfLives) {
+  if (numberOfLives == 1) {
+    hideHeart("#heart-2", "#heart-3");
+  } else if (numberOfLives == 2) {
+    hideHeart("#heart-3");
+  } else if (numberOfLives == 3) {
+    showHeart("#heart-1", "#heart-2", "#heart-3");
+  }
+}

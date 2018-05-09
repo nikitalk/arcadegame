@@ -4,50 +4,45 @@
     <meta charset="UTF-8">
     <title>Classic Arcade Game Clone</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Orbitron:500" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">
 </head>
 <body>
     <div id="begin" class="modal">
-    <p><span class='heading'>The Classic Arcade Game Clone</span><br><br>
-            To win the game you need to gain 50 points.<br> Use arrow keys to move.<br>
-            You have 3 lives and looses one after<br> collision with a bug.<br>
-            10 points are added every time you<br> reach the water.</p><br>
-
-<button id="start-game">Start game</button>
+        <p>
+            <span class='heading'>The Classic Arcade Game Clone</span>
+            <br>
+            <br> To win the game you need to gain 50 points.
+            <br> Use arrow keys to move.
+            <br> You have 3 lives and looses one after
+            <br> collision with a bug.
+            <br> 10 points are added every time you
+            <br> reach the water.</p>
+        <br>
+        <button id="start-game">Start game</button>
     </div>
 
-    <div id="gaming">  
-           
-            <ul class="stars">
-                <li id="star">
-                   
-                </li>
-                <li id="star2">
-                       
-                </li>
-                <li id="star3">
-                       
-                </li>
-                
-            </ul>
-            <ul class="stars">
-                <li id="score"></li>
-            </ul>
+    <div id="gaming" class="lives-and-score">
+        <ul>
+            <li id="heart-1"></li>
+            <li id="heart-2"></li>
+            <li id="heart-3"></li>
+        </ul>
+        <ul>
+            <li id="score"></li>
+        </ul>
     </div>
 
     <div id="game-over" class="modal">
-<p>Game over</p>
-<button id="try-again">Try again</button>
+        <p>Game over</p>
+        <button id="try-again">Try again</button>
     </div>
 
     <div id="win-game" class="modal">
-<p>Congratulations!!!</p>
-
-<button id="play-again">Play again</button>
+        <p>Congratulations!!!</p>
+        <button id="play-again">Play again</button>
     </div>
 
-   <script src="js/resources.js"></script>
+    <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 </body>

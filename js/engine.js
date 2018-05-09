@@ -13,7 +13,7 @@
  * writing app.js a little simpler to work with.
  */
 
- let stoprender = false;
+
 
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -54,7 +54,7 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        if (!stoprender) {update(dt);
+        if (!stopRender) {update(dt);
         render();}
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -97,7 +97,7 @@ var Engine = (function(global) {
         checkCollisions();
         checkWaterReaching();
         checkWin();
-        checkLifes();
+        checkLives();
     }
 
 
@@ -109,7 +109,7 @@ var Engine = (function(global) {
         
             player.sprite = "images/great.png";
             player.row++;
-            stop = true;
+            stopMoves = true;
             setTimeout(addScoreAndReset, 1000);
             
         }
@@ -121,10 +121,10 @@ var Engine = (function(global) {
     function addScoreAndReset() {
         player.reset();
                 player.sprite = "images/char-pink-girl.png";
-                stop = false;
-                scoreid.innerHTML = "";
+                stopMoves = false;
+                scoreId.innerHTML = "";
                 game.score+=10;
-                scoreid.insertAdjacentHTML("beforeend", "Score: " + game.score);
+                scoreId.insertAdjacentHTML("beforeend", "Score: " + game.score);
                 
         reachingWater = false;
     }
@@ -133,10 +133,10 @@ var Engine = (function(global) {
     function resetScore() {
         player.reset();
                 player.sprite = "images/char-pink-girl.png";
-                stop = false;
-                scoreid.innerHTML = "";
+                stopMoves = false;
+                scoreId.innerHTML = "";
                 game.score++;
-                scoreid.insertAdjacentHTML("beforeend", game.score);
+                scoreId.insertAdjacentHTML("beforeend", game.score);
                 
         reachingWater = false;
     }
@@ -158,8 +158,8 @@ var Engine = (function(global) {
 
    
 
-    function checkLifes() {
-        if (player.lifes == 0) {
+    function checkLives() {
+        if (player.lives == 0) {
             
             game.gameOver();
             
@@ -191,7 +191,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
