@@ -1,11 +1,5 @@
-let stopMoves = false;
-let stopRender = false;
-const scoreId = document.querySelector("#score");
-const startGame = document.querySelector("#start-game");
-const tryAgain = document.querySelector("#try-again");
-const playAgain = document.querySelector("#play-again");
-
 // Game class
+
 class Game {
   constructor() {
     this.score = 0;
@@ -143,6 +137,19 @@ class Player {
   }
 }
 
+
+// DOM elements
+
+const scoreId = document.querySelector("#score");
+const startGame = document.querySelector("#start-game");
+const tryAgain = document.querySelector("#try-again");
+const playAgain = document.querySelector("#play-again");
+
+// Variables
+
+let stopMoves = false;
+let stopRender = false;
+
 const player = new Player();
 
 const allEnemies = [];
@@ -161,14 +168,23 @@ const keyUpEvent = function(e) {
   if (!stopMoves) player.handleInput(allowedKeys[e.keyCode]);
 };
 
+/**
+ * Adding event listener to canvas
+ */
 function addCanvasEventListener() {
   document.addEventListener("keyup", keyUpEvent);
 }
 
+/**
+ * Deleting event listener from canvas
+ */
 function removeCanvasEventListener() {
   document.removeEventListener("keyup", keyUpEvent);
 }
 
+/**
+ * Show heart (player's life)
+ */
 function showHeart() {
   for (const argument of arguments) {
     document.querySelector(
@@ -177,12 +193,18 @@ function showHeart() {
   }
 }
 
+/**
+ * Hide heart (player's life)
+ */
 function hideHeart() {
   for (const argument of arguments) {
     document.querySelector(argument).innerHTML = ``;
   }
 }
 
+/**
+ * Show needed number of hearts
+ */
 function showHearts(numberOfLives) {
   if (numberOfLives == 1) {
     hideHeart("#heart-2", "#heart-3");
