@@ -67,14 +67,14 @@ class Game {
 class Enemy {
   constructor() {
     this.row = getRandomInt(1, 3);
-    this.x = -getRandomInt(100, 600);
+    this.x = -getRandomInt(100, 300);
     this.y = this.row * 83 - 20;
     this.speed = getRandomInt(190, 550);
     this.sprite = "images/enemy-bug.png";
   }
 
   reset() {
-    this.x = -getRandomInt(100, 600);
+    this.x = -getRandomInt(100, 300);
     this.row = getRandomInt(1, 3);
     this.y = this.row * 83 - 20;
     this.speed = getRandomInt(190, 550);
@@ -146,7 +146,7 @@ class Player {
 const player = new Player();
 
 const allEnemies = [];
-for (i = 1; i < 5; i++) allEnemies.push(new Enemy());
+for (i = 1; i < 7; i++) allEnemies.push(new Enemy());
 
 const game = new Game();
 

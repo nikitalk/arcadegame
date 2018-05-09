@@ -1,6 +1,27 @@
-frontend-nanodegree-arcade-game
-===============================
+# Classic Arcade Game Clone Project
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Project for the Udacity Front End Nanodegree program within Google Developer Scholarship
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## Installing
+
+No installation is needed. There are two ways to begin:
+1) You can clone this project or [download](https://github.com/nikitalk/arcadegame/archive/master.zip) and open index.html;
+2) You can take a look at this project [here](https://nikitalk.github.io/arcadegame).
+Click the "Start game" button on the initial window. To play again use buttons on windows seen after winning the game or when the game is over. 
+
+## Game Rules 
+
+The goal of the game is to gain 50 points. Use arrow keys to move. You have 3 lives and looses one after collision with a bug. 10 points are added every time you reach the water.
+
+## Contributing
+
+Fork it if you want to improve it or suggest improvenments.
+
+## Author
+
+**Nikita L. Karavaev** - [nikitalk](https://github.com/nikitalk)
+
+## Built with
+
+Game engine, basic art assets and starter code were provided by Udacity.
+
