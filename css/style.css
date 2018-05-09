@@ -20,25 +20,23 @@ body {
 
 canvas {
     transform: perspective(600px) rotateX(30.5deg);
-  width:60%;
-  position:absolute; top:20px; margin: auto; z-index:-1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -400px 0 0 -350px; z-index:-1;
 }
 
-
-#begin, #game-over, #win-game {
-    border-radius: 10px 10px 10px 10px;
+.modal {
+ border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border: 6px solid rgba(112, 122, 209, 0.8);
-  
-    width: 450px;
-    height: 350px;
-
+    
    
     -webkit-box-shadow: 0px 0px 41px 5px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 41px 5px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 41px 5px rgba(0,0,0,0.75);
-padding: 5px;
+padding: 15px;
  text-align: center;
  background-color:rgba(50, 62, 165, 0.8);
  color: #fff;
@@ -46,17 +44,36 @@ padding: 5px;
  font-size: 17px;
 }
 
+
+#begin {
+   
+  
+    width: 450px;
+    height: 350px;
+
+}
+
+ #game-over, #win-game {
+       width: 450px;
+    height: 200px;
+     font-size: 30px;
+ }
+
+
 .stars {
-    margin: 0;
+  margin:0;  
+  margin-left: 10px;
+    margin-right: 10px;
+
     padding: 0;
     display: inline-block;
-    margin: 0;
+    
   }
 
   #score, #star2, #star, #star3 {
     font-family: Mina;
  font-size: 37px;  
- color: rgb(53, 129, 9);
+ color: rgb(255, 255, 255);
  
   }
   
@@ -98,7 +115,16 @@ padding: 5px;
 }
 
 #gaming {
-position: absolute; top: 0;
+position: absolute; top: 5%;
+width:100%;
+display: flex;
+justify-content: space-around; 
+text-shadow: 1px 1px 2px #000000;
+
+}
+
+.heading {
+  font-size: 30px;
 }
 
 

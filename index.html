@@ -8,21 +8,18 @@
   <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">  
 </head>
 <body>
-    <div id="begin">
-    <p>The Classic Arcade Game<br><br>
-            To win the game you need to reach the water with 50 points.<br>
-            To move use arrow keys.<br>
-            You have 3 lives and looses one after collision with a bug.<br>
-            10 points are added every time you reach the water.<br>
-            An extra life can be collected during the game.</p>
+    <div id="begin" class="modal">
+    <p><span class='heading'>The Classic Arcade Game Clone</span><br><br>
+            To win the game you need to gain 50 points.<br> Use arrow keys to move.<br>
+            You have 3 lives and looses one after<br> collision with a bug.<br>
+            10 points are added every time you<br> reach the water.</p><br>
 
 <button id="start-game">Start game</button>
     </div>
 
-    <div id="gaming">
+    <div id="gaming">  
            
             <ul class="stars">
-                <li id="score"></li>
                 <li id="star">
                    
                 </li>
@@ -34,15 +31,17 @@
                 </li>
                 
             </ul>
-
+            <ul class="stars">
+                <li id="score"></li>
+            </ul>
     </div>
 
-    <div id="game-over">
+    <div id="game-over" class="modal">
 <p>Game over</p>
 <button id="try-again">Try again</button>
     </div>
 
-    <div id="win-game">
+    <div id="win-game" class="modal">
 <p>Congratulations!!!</p>
 
 <button id="play-again">Play again</button>
